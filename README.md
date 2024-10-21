@@ -12,12 +12,12 @@ We encourage contributions from developers of all skill levels! Whether you're p
 1. **Fork the Repository**: Start by forking the repo and cloning it to your local machine.
 
    ```bash
-   git clone https://github.com/your-username/linux-script-utility-library.git
+   git clone [https://github.com/HackfedCommunity/linux-script-utility-library.git](https://github.com/HackfedCommunity/linux-script-utility-library/)
    cd linux-script-utility-library
    ```
 
 2. **Work on an Issue or Feature**: 
-   - Check out the [issues section](https://github.com/your-repo/linux-script-utility-library/issues) for tasks you can work on.
+   - Check out the [issues section](https://github.com/HackfedCommunity/linux-script-utility-library/issues) for tasks you can work on.
    - If you want to add a new feature, open an issue to discuss your idea first.
    
 3. **Create a New Script**:
