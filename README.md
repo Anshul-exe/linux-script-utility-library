@@ -12,7 +12,7 @@ We encourage contributions from developers of all skill levels! Whether you're p
 1. **Fork the Repository**: Start by forking the repo and cloning it to your local machine.
 
    ```bash
-   git clone [https://github.com/HackfedCommunity/linux-script-utility-library.git](https://github.com/HackfedCommunity/linux-script-utility-library/)
+   git clone https://github.com/HackfedCommunity/linux-script-utility-library.git
    cd linux-script-utility-library
    ```
 
