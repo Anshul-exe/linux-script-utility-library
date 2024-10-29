@@ -1,77 +1,46 @@
-```markdown
-# Kargos Plugins Collection
+# Kargo Plugins
+This repository contains a number of Kargo plugins written in Bash.
+To create a plugin, all you have to do is to create an executable program (in any language) that produces standard output following an specific format.
 
-This repository contains a collection of custom plugins for [Kargos](https://github.com/lipido/kargos), a KDE Plasma port of the Argos and BitBar plugin formats, enabling easy creation of custom plasmoids. Each plugin here is designed to provide practical utilities and dynamic system information right on your KDE panel.
+## Instalation 
+To use my plugins install kargos first using provided command. 
+```
+git clone git@github.com:lipido/kargos.git
+cd kargos
+kpackagetool5 -t Plasma/Applet --install plasmoid
 
-## Features
+```
+Now you can add the a kargo plasmoid to your panel. You have to configure it to indicate the command or executable.
 
-- **CPU Monitoring**: Displays real-time CPU usage and load with color-coded thresholds.
-- **Memory Usage**: Shows available memory and usage percentage.
-- **Disk Usage**: Monitors specified partitions and alerts based on usage levels.
-- **Weather Updates**: Fetches current weather information using `curl` and a weather API.
-- **RSS Feed Reader**: Continuously rotates through headlines from favorite RSS feeds, inspired by KNewsTicker.
-- **Network Status**: Displays Wi-Fi strength, IP addresses, and network connectivity details.
-- **Battery Status**: Shows current battery charge level and charging status.
-- **Volume Control**: Adds quick volume adjustment and mute options.
+Installing Kargos_plugins
 
-## Installation
+```
+git clone https://github.com/ashish-kus/Kargos-plugins 
+mv ./Kargos-plugins ~/.Kargos-plugins
 
-1. **Install Kargos**:
-   - Clone the repository:
-     ```bash
-     git clone https://github.com/lipido/kargos.git
-     cd kargos
-     kpackagetool5 -t Plasma/Applet --install plasmoid
-     ```
+```
+## Uses
+To configure the plasmoid, right-click on it. The configuration dialog will have three fields:
 
-   - Alternatively, install Kargos from KDE's widget store by searching for "kargos".
+Path to executable script: The path to the executable script that the plasmoid will run. The path must start with ``` ~/ ``` and be written manually.
+Interval: The interval in seconds between each time the plasmoid re-renders.
+Rotation delay: The delay in seconds before the plasmoid rotates.
 
-2. **Add Plugins**:
-   - Clone this repository:
-     ```bash
-     git clone https://github.com/yourusername/kargos-plugins.git
-     cd kargos-plugins
-     ```
-   - Copy desired plugins to your Kargos config directory:
-     ```bash
-     cp plugins/*.sh ~/.config/kargos/
-     chmod +x ~/.config/kargos/*.sh
-     ```
+## Plugin example 
 
-3. **Configure the Kargos Widget**:
-   - Add a Kargos widget to your KDE panel and specify the path of the plugin script in the Kargos settings panel.
-
-## Plugin Examples
-
-### CPU Monitor Plugin (`cpu-monitor.5s.sh`)
-This plugin displays current CPU usage, updating every 5 seconds. It color-codes usage levels based on threshold settings:
-```bash
+```
 #!/bin/bash
-echo "CPU: $(grep 'cpu ' /proc/stat | awk '{print int(($2+$4)*100/($2+$4+$5))}')% | color=blue"
+
+MICROWATT=$(cat /sys/class/power_supply/BAT0/power_now) # Power counsumption in watt:
+WATT=$( echo "scale=2;$MICROWATT / 1000000 "| bc ) 
+FINAL=" $WATT W "
+
+echo $FINAL
+
 ```
 
-### RSS Reader Plugin (`rss-reader.60s.sh`)
-Displays headlines from an RSS feed, refreshing every 60 seconds. Useful for tracking news without switching apps.
-```bash
-#!/bin/bash
-curl -s "https://rss.cnn.com/rss/edition.rss" | grep "<title>" | head -n 5 | sed 's/<[^>]*>//g'
-```
+## plugins 
 
-### Weather Plugin (`weather.30m.sh`)
-Fetches and displays current weather info from an API, refreshing every 30 minutes.
-```bash
-#!/bin/bash
-LOCATION="your-city"
-API_KEY="your-api-key"
-curl -s "https://api.openweathermap.org/data/2.5/weather?q=$LOCATION&appid=$API_KEY" \
-| jq -r '.weather[0].description + " " + (.main.temp - 273.15 | tostring) + "°C"'
-```
 
-## Customization
-
-Each plugin script is easily configurable. Modify refresh intervals by renaming files (e.g., `plugin.5s.sh` to `plugin.10m.sh`). Add new functionalities by editing the `echo` statements, and change colors or icons based on your preferences.
-
-## License
-
-This project is licensed under the MIT License.
-```
+## Contributing
+If you would like to contribute to this repository, please fork the repository and submit a pull request.
